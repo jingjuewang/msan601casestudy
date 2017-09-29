@@ -1,4 +1,5 @@
 library(dplyr)
+
 # load the housing.txt data
 houseData <- read.table(FILENAME, header = TRUE,sep = ",", dec = ".")
 
@@ -46,3 +47,9 @@ sapply(houseData, function(x) round(sum(is.na(x))/nrow(houseData)*100, 2))
 
 #Make sure this returns 0.
 sum(is.na(houseData))
+       
+# standardize numeric variables
+cat_var <- names(houseData)[which(sapply(houseData, is.factor))]
+numeric_var <- names(houseData)[which(sapply(houseData, is.numeric))]
+housing_categoric <- houseData[, cat_var]
+housing_numeric <- scale(houseData[, numeric_var])
